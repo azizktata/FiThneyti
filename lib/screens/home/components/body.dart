@@ -1,37 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/enums.dart';
+import 'package:shop_app/models/Reservation.dart';
 import 'package:shop_app/models/RideDetails.dart';
 
 import '../../../size_config.dart';
-import 'categories.dart';
-import 'discount_banner.dart';
+
 import 'home_header.dart';
-import 'popular_product.dart';
 import 'ride_card.dart';
 
+// ignore: must_be_immutable
 class Body extends StatelessWidget {
-  List<RideDetails> myReservations = [
-     RideDetails(
-    user: "John Doe",
-    rating: 4.5,
+  List<Reservation> myReservations = [
+    Reservation(
     departurePoint: "New York City",
     destinationPoint: "Los Angeles",
     startTime: '10:00 AM',
     endTime: "3:00 PM",
     dayTime: DateTime.now(),
-    price: 50.0,
-    places:2
+    status : ReservationState.Accepted,
   ),
-  RideDetails(
-    user: "Jane Smith",
-    rating: 4.8,
-    departurePoint: "San Francisco",
-    destinationPoint: "Seattle",
-    startTime: '9:00 AM',
-    endTime: "2:00 PM",
-    dayTime:DateTime.now(),
-    price: 60.0,
-    places:1
-
+  Reservation(
+    departurePoint: "Ezzahra",
+    destinationPoint: "Sesame",
+    startTime: '10:00 AM',
+    endTime: "3:00 PM",
+    dayTime: DateTime.now(),
+    status : ReservationState.Completed,
   ),
   ];
   List<RideDetails> myRides = [
@@ -67,8 +61,8 @@ class Body extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            /*SizedBox(height: getProportionateScreenHeight(20)),
-            HomeHeader(),*/
+            SizedBox(height: getProportionateScreenHeight(20)),
+            //HomeHeader(),
             SizedBox(height: getProportionateScreenWidth(10)),
             Image.asset(
               "assets/images/splash_1.png",
@@ -97,7 +91,7 @@ class Body extends StatelessWidget {
            ),
             //DiscountBanner(),
             //Categories(),
-            RideCard(title :"My Reservations", rides: myReservations,),
+            RideCard(title :"My Reservations", reservations: myReservations, isRide: false),
             SizedBox(height: getProportionateScreenWidth(30)),
             //PopularProducts(),
             RideCard(title :"My Rides",rides: myRides,),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:shop_app/screens/search_ride/Components/InputSearch.dart';
 import 'package:shop_app/screens/search_ride/rides_screen.dart';
+
+import '../../../constants.dart';
 
 class SearchCardV2 extends StatefulWidget {
   const SearchCardV2({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class _SearchCardV2State extends State<SearchCardV2> {
 
   String departInput = 'Départ';
   String destInput = "Destination";
-  DateTime _dateTime = DateTime(0);
+  DateTime _dateTime = DateTime.now();
   void _showDatePicker(){
       showDatePicker(
         context: this.context,
@@ -89,7 +89,7 @@ class _SearchCardV2State extends State<SearchCardV2> {
             right: 48,
             child: Container(
               
-              height: MediaQuery.of(context).size.height * 0.37,
+              height: MediaQuery.of(context).size.height * 0.40,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
@@ -135,6 +135,7 @@ class _SearchCardV2State extends State<SearchCardV2> {
                       },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                          foregroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
                           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0)),
                         ),
                         child: Row(
@@ -221,9 +222,9 @@ class _SearchCardV2State extends State<SearchCardV2> {
   Container InputField( String type, ){
     double w = MediaQuery.of(context).size.width;
     return Container(
-      margin:const EdgeInsets.symmetric(horizontal: 55.0, vertical: 15.0),
-      padding:const EdgeInsets.symmetric(vertical: 15.0),
-      decoration: BoxDecoration(
+      margin:const EdgeInsets.symmetric(horizontal: 50.0, vertical: 11.0),
+      padding:const EdgeInsets.symmetric(vertical: 11.0),
+      /*decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
             color: Colors.black87,
@@ -231,7 +232,7 @@ class _SearchCardV2State extends State<SearchCardV2> {
           ),
           
         )
-      ),
+      ),*/
       child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -266,9 +267,16 @@ class _SearchCardV2State extends State<SearchCardV2> {
                     }
                     
                  },
-                  style: TextButton.styleFrom(
+                 /* style: TextButton.styleFrom(
                     foregroundColor: Colors.black38
-                ),
+                ),*/
+                style: TextButton.styleFrom(
+                  foregroundColor: kPrimaryColor,
+                  padding: EdgeInsets.all(20),
+                  shape:
+                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                    backgroundColor: Color(0xFFF5F6F9),
+                  ),
                 ),
               
               ),
@@ -281,30 +289,28 @@ class _SearchCardV2State extends State<SearchCardV2> {
   
   Container datePicker(){
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 12.0,horizontal: 40.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          TextButton.icon(
-            icon: Icon( // <-- Icon
-             Icons.calendar_month,
-             color: Colors.black38,
-             size: 24.0,
+      padding: EdgeInsets.symmetric(vertical: 15.0,horizontal: 57.0),
+      child: OutlinedButton(
+        onPressed: _showDatePicker,
+        style: TextButton.styleFrom(
+              foregroundColor: kPrimaryColor,
+              padding: EdgeInsets.all(20),
+              shape:
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              backgroundColor: Color(0xFFF5F6F9),
             ),
-            onPressed: _showDatePicker,
-            
-            label: _dateTime.year!=0 
-            ? Text('${weekdayName[_dateTime.weekday]}.${_dateTime.day.toString()}.${monthName[_dateTime.month]}'
-              ,style: TextStyle(color: Color.fromARGB(255, 97, 94, 94),fontSize: 20),)
-            : Text("Choose Date",
-               style: TextStyle(color: Color.fromARGB(255, 85, 84, 84),fontSize: 20),),  
+        child: Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(Icons.date_range, color: Colors.orangeAccent, ),
+            SizedBox(width: 10,),
+            Text('${weekdayName[_dateTime.weekday]}.${_dateTime.day.toString()}.${monthName[_dateTime.month]}'),
 
-            
-            ),
-            
-          
-        ],
-      ),
+          ],
+        ),
+        
+      )
     );
   }
 }
+

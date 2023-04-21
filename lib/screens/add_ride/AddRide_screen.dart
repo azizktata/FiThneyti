@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:shop_app/components/topbarv1.dart';
+
 import 'package:shop_app/screens/add_ride/Components/RowPicker.dart';
 import 'package:shop_app/screens/add_ride/Components/search_position.dart';
 
 import '../../components/default_button.dart';
+import '../../constants.dart';
 import '../../size_config.dart';
 import '../details/components/top_rounded_container.dart';
 
@@ -27,7 +25,8 @@ String stepLocation = "Enter your next step";
   int carSeatCount = 0;
   // define variables for date and time
   DateTime selectedDate = DateTime.now();
-  TimeOfDay selectedTime = TimeOfDay.now();
+  TimeOfDay selectedStartTime = TimeOfDay.now();
+  TimeOfDay selectedEndTime = TimeOfDay.now();
 
   void _onChangeValue(int c){
     setState(() {
@@ -105,8 +104,7 @@ String stepLocation = "Enter your next step";
               child: RowPicker(title: "Available Seats", onChangeValue: _onChangeValue)
             ),
             Divider(),
-      
-            // section 3: date and time selection
+
             SizedBox(height: 16,),
             Container(
            
@@ -127,82 +125,83 @@ String stepLocation = "Enter your next step";
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       
-                      OutlinedButton(
-                        onPressed: () async {
-                          final newDate = await showDatePicker(
-                            context: context,
-                            initialDate: selectedDate,
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime.now().add(Duration(days: 30)),
-                          );
-                          if (newDate != null) {
-                            setState(() {
-                              selectedDate = newDate;
-                            });
-                          }
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                          fixedSize: MaterialStateProperty.all<Size>(Size(mediaQuery.size.width/2.4, 60.0)),
-                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0)),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(Icons.date_range, color: Colors.orangeAccent, ),
-                            SizedBox(width: 16.0),
-                            Text(
-                              selectedDate.toString().substring(0, 10),
-                              style: TextStyle(
-                                color: Colors.black54
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: () async {
+                            final newDate = await showDatePicker(
+                              context: context,
+                              initialDate: selectedDate,
+                              firstDate: DateTime.now(),
+                              lastDate: DateTime.now().add(Duration(days: 30)),
+                            );
+                            if (newDate != null) {
+                              setState(() {
+                                selectedDate = newDate;
+                              });
+                            }
+                          },
+                        /*  style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                            
+                            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0)),
+                          ),*/
+                          style: TextButton.styleFrom(
+                                foregroundColor: kPrimaryColor,
+                                padding: EdgeInsets.all(20),
+                                shape:
+                                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                                backgroundColor: Color(0xFFF5F6F9),
                               ),
-                            ),
-                          ],
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                selectedDate.toString().substring(0, 10),
+                                style: TextStyle(
+                                  color: Colors.black54
+                                ),
+                              ),
+                              Icon(Icons.date_range, color: Colors.orangeAccent, ),
+
+                            ],
+                          ),
+                                 
                         ),
-      
-      
-      
-      
-      
                       ),
-                      SizedBox(height: 16),
-                      OutlinedButton(
-                        onPressed: () async {
-                          final newTime = await showTimePicker( context: context,
-                        initialTime: selectedTime,
-                      );
-                      if (newTime != null) {
-                        setState(() {
-                          selectedTime = newTime;
-                        });
-                      }
-                },
-                style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                          fixedSize: MaterialStateProperty.all<Size>(Size(mediaQuery.size.width/2.5, 60.0)),
-                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0)),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(Icons.access_time,color: Colors.orangeAccent, ),
-                            SizedBox(width: 16.0),
-                            Text(
-                              selectedTime.format(context),
-                              style: TextStyle(
-                                color: Colors.black54
-                              ),
-                              
-                            ),
-                          ],
-                        ),
-      
-      
-            
-              ),
+                      
                     ],
-                  ),
+                ),
             ],
           ),
         ),
+
+            Divider(),
+            // section 3: date and time selection
+            SizedBox(height: 16,),
+            Container(
+           
+              padding: EdgeInsets.all(12),
+              child: Row(
+                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: hourPick("Start Time")
+                    
+                    ),
+                    SizedBox(width: 12,),
+                    Expanded(
+                    child: hourPick("End Time")
+                    
+                    ),
+
+                  
+                  
+                ],
+              ),
+              
+              
+        ),
+        
           ],
         ),
       ),
@@ -236,7 +235,7 @@ String stepLocation = "Enter your next step";
                         context,
                         MaterialPageRoute(builder: (context) => SearchPosition()));
                       setState(() {
-                        if(departInput!=null)
+                        if(departInput!="")
                         pickupLocation = departInput;
                       });
                       }
@@ -245,7 +244,7 @@ String stepLocation = "Enter your next step";
                         context,
                         MaterialPageRoute(builder: (context) => SearchPosition()));
                      setState(() {
-                      if(destInput!=null)
+                      if(destInput!="")
                         dropLocation = destInput;
                       });
                     }
@@ -264,11 +263,18 @@ String stepLocation = "Enter your next step";
                  }
                     
                   ,
-                  style: ButtonStyle(
+                 /* style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                     fixedSize: MaterialStateProperty.all<Size>(Size( type == "etape" ? 400 : double.infinity, 60.0)),
                     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0)),
-                  ),
+                  ),*/
+                  style: TextButton.styleFrom(
+          foregroundColor: kPrimaryColor,
+          padding: EdgeInsets.all(20),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          backgroundColor: Color(0xFFF5F6F9),
+        ),
                   child: Row(
                     children: [
                       Icon(Icons.location_on_outlined, color:type == "Départ" ? Colors.green : type == "etape" ? Colors.pink : Colors.red),
@@ -284,4 +290,77 @@ String stepLocation = "Enter your next step";
 
                 
   }
+
+  Container hourPick (String type){
+    var mediaQuery = MediaQuery.of(context);
+    return 
+       Container(
+         child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          type,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+             
+                        SizedBox(height: 30),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            
+                            SizedBox(height: 16),
+                            Expanded(
+                              child: OutlinedButton(
+                                onPressed: () async {
+                                  final newTime = await showTimePicker( context: context,
+                                initialTime: selectedStartTime,
+                              );
+                              if (newTime != null) {
+                                setState(() {
+                                  type=="Start Time" ? selectedStartTime = newTime : selectedEndTime = newTime;
+                                });
+                              }
+                                                },
+                                 /* style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                
+                                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0)),
+                                ),*/
+                                style: TextButton.styleFrom(
+                                foregroundColor: kPrimaryColor,
+                                padding: EdgeInsets.all(20),
+                                shape:
+                                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                                backgroundColor: Color(0xFFF5F6F9),
+                              ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    
+                                    Text(
+                                       type=="Start Time" ? selectedStartTime.format(context) : selectedEndTime.format(context),
+                                      style: TextStyle(
+                                        color: Colors.black54
+                                      ),
+                                      
+                                    ),
+                                     
+                                    Icon(Icons.access_time,color: Colors.orangeAccent, ),
+                                   
+                                  ],
+                                ),                 
+                              ),
+                            ),
+                          ],
+                      ),
+              ],
+            
+           
+           ),
+       );
+  }
+
 }
