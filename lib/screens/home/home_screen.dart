@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(AppBar().preferredSize.height),
-        child: CustomBar(context),
+        child: customBar(context),
       ),
       body: Body(),
       bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-SafeArea CustomBar(BuildContext context){
+SafeArea customBar(BuildContext context){
   return   SafeArea(
       child: Padding(
         padding:

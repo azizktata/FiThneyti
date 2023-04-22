@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/models/RideDetails.dart';
 import 'package:shop_app/screens/details/components/top_rounded_container.dart';
@@ -23,14 +20,16 @@ class BodyRide extends StatelessWidget {
         Column(
         children: [
         SizedBox(
-          width: mediaQuery.size.width/1.5,
+          width: mediaQuery.size.width/1.2,
           child: AspectRatio(
             aspectRatio: 1,
             child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    
                     children: [
+                      //Depart + time container
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 50.0),
+                          padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Row(
                                               
                           children: [
@@ -79,9 +78,11 @@ class BodyRide extends StatelessWidget {
                         ],
                       ),
                         ),
+                    //--------------------------------------
+                    // destination + time container
                     SizedBox(height: 10),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 50.0),
+                     padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         
                         children: [
@@ -126,7 +127,8 @@ class BodyRide extends StatelessWidget {
                         ],
                       ),
                     ),
-
+                  //----------------------------------------------  
+                 //Time + average duration row
                 SizedBox(height: 10,),
                 SizedBox(
                 
@@ -178,13 +180,15 @@ class BodyRide extends StatelessWidget {
                   ],
                 ),
               ),
-                    ],
-                  ),
+              ],
+            ),
 
             ),
           ),
        ],
       ),
+      //---------------------
+      //Ride details section
       TopRoundedContainer(
         color: Colors.white
       , child: Column(
@@ -193,6 +197,8 @@ class BodyRide extends StatelessWidget {
       ],
       )
       ),
+      //---------------------------
+      //user profile + call btn section
       TopRoundedContainer(
         color: Color(0xFFF6F7F9),
        child: Column(

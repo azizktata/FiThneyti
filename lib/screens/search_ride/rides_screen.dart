@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/search_ride/Components/filterInput.dart';
-import 'package:shop_app/screens/search_ride/RideDetailsPage.dart';
-import 'package:shop_app/screens/search_ride/RideDetailsPageV2.dart';
+import 'package:shop_app/screens/details/RideDetailsPageV2.dart';
 
 
 import '../../constants.dart';

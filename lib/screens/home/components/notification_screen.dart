@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
-import '../../../constants.dart';
 import '../../../models/NotificationItem.dart';
-import '../../../size_config.dart';
 import 'notification_body.dart';
 
 class NotificationScreen extends StatelessWidget {

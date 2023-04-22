@@ -37,7 +37,6 @@ String stepLocation = "Enter your next step";
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Offer Ride"),
@@ -292,7 +291,6 @@ String stepLocation = "Enter your next step";
   }
 
   Container hourPick (String type){
-    var mediaQuery = MediaQuery.of(context);
     return 
        Container(
          child: Column(

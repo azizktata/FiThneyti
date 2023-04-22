@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -48,6 +45,8 @@ class _InputDepartState extends State<InputDepart> {
     setState(() {
       _searchController.text = selectedItem;
     });
+
+    Navigator.pop(context, _searchController.text);
     
   }
 
@@ -58,7 +57,7 @@ class _InputDepartState extends State<InputDepart> {
          leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context, _searchController.text);
+            Navigator.pop(context);
           },
           
         ),

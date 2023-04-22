@@ -5,7 +5,6 @@ import 'package:shop_app/models/RideDetails.dart';
 
 import '../../../size_config.dart';
 
-import 'home_header.dart';
 import 'ride_card.dart';
 
 // ignore: must_be_immutable

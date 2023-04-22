@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../../models/NotificationItem.dart';
 
@@ -31,7 +28,7 @@ class NotificationBody extends StatelessWidget {
                 children: [
                  IconButton(
                  onPressed: () {
-                // TODO: Handle accept button press
+                      // TODO: Handle accept button press
                   },
                  icon: Icon(Icons.check_circle_outline),
                  color: Colors.green,

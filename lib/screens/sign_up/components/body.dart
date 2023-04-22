@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/socal_card.dart';
-import 'package:shop_app/constants.dart';
-import 'package:shop_app/size_config.dart';
+import '../../../constants.dart';
+import '../../../size_config.dart';
 
 import 'sign_up_form.dart';
 
@@ -30,7 +29,7 @@ class Body extends StatelessWidget {
                 Text(
                   'By continuing your confirm that you agree \nwith our Term and Condition',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.bodySmall,
                 )
               ],
             ),

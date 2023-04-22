@@ -84,12 +84,12 @@ class _SearchCardV2State extends State<SearchCardV2> {
 
           // search card
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.30,
-            left: 48,
-            right: 48,
+            top: MediaQuery.of(context).size.height * 0.20,
+            left: 32,
+            right: 32,
             child: Container(
               
-              height: MediaQuery.of(context).size.height * 0.40,
+              height: MediaQuery.of(context).size.height * 0.50,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
@@ -98,66 +98,70 @@ class _SearchCardV2State extends State<SearchCardV2> {
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 2,
                     blurRadius: 4,
-                    offset: Offset(0, 2), // changes position of shadow
+                    offset: Offset(0, 2),
                   ),
                 ],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // first button
+                 
                  InputField("Départ"),
-                  // second button
+                  
                   InputField("Destination"),
-                  // third button
-                  Row(
-                   children: [
-                    datePicker(),
-                    Container(
-                     decoration: BoxDecoration(
-                     border: Border(
-                     left: BorderSide(
-                     color: Colors.grey,
-                     width: 1.0,
-                     ),
-                    ),
-                  ),
-                    child: OutlinedButton(
-                        onPressed: () async {
-                          final newTime = await showTimePicker( context: context,
-                        initialTime: selectedTime,
-                      );
-                      if (newTime != null) {
-                        setState(() {
-                          selectedTime = newTime;
-                        });
-                      }
-                      },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                          foregroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
-                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0)),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(Icons.access_time, ),
-                            SizedBox(width: 16.0),
-                            Text(
-                              selectedTime.format(context)
-                            ),
-                          ],
-                        ),  
+                 
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                     children: [
+                      datePicker(),
+                      Container(
+                       decoration: BoxDecoration(
+                       border: Border(
+                       left: BorderSide(
+                       color: Colors.grey,
+                       width: 1.0,
+                       ),
                       ),
-                   ),
-                ],
-               ),
+                    ),
+                      child: OutlinedButton(
+                          onPressed: () async {
+                            final newTime = await showTimePicker( context: context,
+                          initialTime: selectedTime,
+                        );
+                        if (newTime != null) {
+                          setState(() {
+                            selectedTime = newTime;
+                          });
+                        }
+                        },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                            foregroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
+                            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0)),
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(Icons.access_time, ),
+                              SizedBox(width: 10.0),
+                              Text(
+                                selectedTime.format(context)
+                              ),
+                            ],
+                          ),  
+                        ),
+                     ),
+                                  ],
+                                 ),
+                  ),
                   // search button and search history
                  
                   Expanded(
                     
                   child: ElevatedButton(
                   onPressed: () {
-                    // Add the search to the history when the button is pressed
+                   
                     _goToNextPage(context);
                   },
                   style: ElevatedButton.styleFrom(
@@ -222,22 +226,14 @@ class _SearchCardV2State extends State<SearchCardV2> {
   Container InputField( String type, ){
     double w = MediaQuery.of(context).size.width;
     return Container(
-      margin:const EdgeInsets.symmetric(horizontal: 50.0, vertical: 11.0),
-      padding:const EdgeInsets.symmetric(vertical: 11.0),
-      /*decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.black87,
-            width: 1.0
-          ),
-          
-        )
-      ),*/
+      margin:const EdgeInsets.symmetric( vertical: 11.0),
+      padding:const EdgeInsets.symmetric(vertical: 8.0),
+     
       child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                SizedBox(
-                width: (60*w/100),
+                width: (70*w/100),
                 child : TextButton.icon(
                 label: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -289,12 +285,12 @@ class _SearchCardV2State extends State<SearchCardV2> {
   
   Container datePicker(){
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 15.0,horizontal: 57.0),
+      
       child: OutlinedButton(
         onPressed: _showDatePicker,
         style: TextButton.styleFrom(
               foregroundColor: kPrimaryColor,
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(15),
               shape:
                   RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
               backgroundColor: Color(0xFFF5F6F9),

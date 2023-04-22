@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:shop_app/models/RideDetails.dart';
-import 'package:shop_app/screens/search_ride/Components/bodyRide.dart';
+import 'package:shop_app/screens/details/components/bodyRide.dart';
 
-import '../details/components/custom_app_bar.dart';
+import 'components/custom_app_bar.dart';
 
 class RideDetailsPageV2 extends StatelessWidget {
   final RideDetails rideDetails;
